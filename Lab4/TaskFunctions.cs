@@ -267,6 +267,8 @@ namespace Lab4
                     participants.Add(new Participant(lastName, firstName, grade, score));
                 }
 
+                
+
                 reader.Close();
 
                 SortedList<int, List<Participant>> scoreGroups = new SortedList<int, List<Participant>>();
@@ -282,82 +284,35 @@ namespace Lab4
 
                 List<int> scores = new List<int>(scoreGroups.Keys);
 
-                for (int i = 0; i < scores.Count - 1; i++)
+                int maxScore = scores[scores.Count - 1];
+
+                List<Participant> candidates = scoreGroups[maxScore];
+
+                
+
+                if (maxScore > 200 && ( (double)candidates.Count / participants.Count <= 20) )
                 {
-                    for (int j = i + 1; j < scores.Count; j++)
+                    Console.WriteLine("Победители есть.");
+                    if (scores.Count == 1)
                     {
-                        if (scores[i] < scores[j])
-                        {
-                            int temp = scores[i];
-                            scores[i] = scores[j];
-                            scores[j] = temp;
-                        }
+                        Console.WriteLine("Участников, не ставших победителями, нет.");
+                        return;
                     }
-                }
-
-                List<Participant> winners = new List<Participant>();
-                int totalParticipants = participants.Count;
-                bool hasWinners = false;
-                int winnerScore = -1;
-
-                foreach (int score in scores)
-                {
-                    if (score > 200)
-                    {
-                        List<Participant> candidates = scoreGroups[score];
-                        double percentage = (double)candidates.Count / totalParticipants * 100;
-
-                        if (percentage <= 20)
-                        {
-                            winners.AddRange(candidates);
-                            hasWinners = true;
-                            winnerScore = score;
-                            break;
-                        }
-                    }
-                }
-
-                if (!hasWinners)
-                {
-                    int maxScore = scores[0];
-                    List<Participant> bestParticipants = scoreGroups[maxScore];
-
-                    if (bestParticipants.Count > 1)
-                    {
-                        Console.WriteLine(bestParticipants.Count);
-                    }
-                    else
-                    {
-                        Console.WriteLine(bestParticipants[0].LastName + " " + bestParticipants[0].FirstName);
-                    }
-                    return;
-                }
-
-                int nextBestScore = -1;
-                foreach (int score in scores)
-                {
-                    if (score < winnerScore)
-                    {
-                        nextBestScore = score;
-                        break;
-                    }
-                }
-
-                if (nextBestScore == -1)
-                {
-                    Console.WriteLine("Участники с меньшими чем у победителей баллами не найдены...");
-                    return;
-                }
-
-                List<Participant> nextBestParticipants = scoreGroups[nextBestScore];
-
-                if (nextBestParticipants.Count > 1)
-                {
-                    Console.WriteLine(nextBestParticipants.Count);
+                    candidates = scoreGroups[scores[scores.Count - 2]];
                 }
                 else
                 {
-                    Console.WriteLine(nextBestParticipants[0].LastName + " " + nextBestParticipants[0].FirstName);
+                    
+                    Console.WriteLine("Победителей нет.");
+                }
+
+                if (scoreGroups[maxScore].Count == 1)
+                {
+                    Console.WriteLine($"Лучший участник, не ставший победителем: {candidates[0].LastName} {candidates[0].FirstName}");
+                }
+                else
+                {
+                    Console.WriteLine($"Количество лучших участников, не ставших победителями: {candidates.Count}");
                 }
 
             }

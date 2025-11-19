@@ -111,7 +111,7 @@ namespace Lab4
             int choice = 0;
             do
             {
-                choice = InputValidation.InputIntegerWithValidation("1 - ввод данных, 2 - запуск, 0 - выход\n", 0, 2);
+                choice = InputValidation.InputIntegerWithValidation("\n1 - ввод данных, 2 - запуск, 0 - выход\n", 0, 2);
                 switch (choice)
                 {
                     case 1: 
