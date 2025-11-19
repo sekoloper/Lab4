@@ -34,13 +34,13 @@ namespace Lab4
         static private void Task2()
         {
             int size = InputValidation.InputIntegerWithValidation("\nВведите размер списка: ", 1, int.MaxValue);
-            List<int> list = TaskFunctions.CreateList(size);
+            LinkedList<int> list = TaskFunctions.CreateLinkedList(size);
             Console.WriteLine("\nВаш список: ");
-            TaskFunctions.PrintList(list);
+            TaskFunctions.PrintLinkedList(list);
             int n = InputValidation.InputIntegerWithValidation("\n\nВведите значение удаляемого элемента: ", int.MinValue, int.MaxValue);
             TaskFunctions.RemoveElementFromList(list, n);
             Console.WriteLine("\nВаш список: ");
-            TaskFunctions.PrintList(list);
+            TaskFunctions.PrintLinkedList(list);
             Console.WriteLine("\n");
         }
 
