@@ -25,23 +25,37 @@ namespace Lab4
         static private void Task1()
         {
             int size = InputValidation.InputIntegerWithValidation("\nВведите размер списка: ", 1, int.MaxValue);
-            List<int> list = TaskFunctions.CreateList<int>(size);
-            Console.WriteLine("\nВаш список: ");
-            TaskFunctions.PrintList(list);
-            Console.WriteLine($"\n\nЕсть ли в списке одинаковые элементы: {TaskFunctions.ListHasDuplicateElements(list)}\n");
+            try
+            {
+                List<int> list = TaskFunctions.CreateList<int>(size);
+                Console.WriteLine("\nВаш список: ");
+                TaskFunctions.PrintList(list);
+                Console.WriteLine($"\n\nЕсть ли в списке одинаковые элементы: {TaskFunctions.ListHasDuplicateElements(list)}\n");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка: {e.Message}");
+            }
         }
 
         static private void Task2()
         {
             int size = InputValidation.InputIntegerWithValidation("\nВведите размер списка: ", 1, int.MaxValue);
-            LinkedList<int> list = TaskFunctions.CreateLinkedList(size);
-            Console.WriteLine("\nВаш список: ");
-            TaskFunctions.PrintLinkedList(list);
-            int n = InputValidation.InputIntegerWithValidation("\n\nВведите значение удаляемого элемента: ", int.MinValue, int.MaxValue);
-            TaskFunctions.RemoveElementFromList(list, n);
-            Console.WriteLine("\nВаш список: ");
-            TaskFunctions.PrintLinkedList(list);
-            Console.WriteLine("\n");
+            try
+            {
+                LinkedList<int> list = TaskFunctions.CreateLinkedList<int>(size);
+                Console.WriteLine("\nВаш список: ");
+                TaskFunctions.PrintLinkedList(list);
+                int n = InputValidation.InputIntegerWithValidation("\n\nВведите значение удаляемого элемента: ", int.MinValue, int.MaxValue);
+                TaskFunctions.RemoveElementFromList(list, n);
+                Console.WriteLine("\nВаш список: ");
+                TaskFunctions.PrintLinkedList(list);
+                Console.WriteLine("\n");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка: {e.Message}");
+            }
         }
 
         static private void Task3()

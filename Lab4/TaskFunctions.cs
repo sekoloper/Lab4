@@ -22,7 +22,7 @@ namespace Lab4
             List<T> list = new List<T>();
             for (int i = 0; i < size; i++)
             {
-                Console.WriteLine($"Введите элемент под номером {i+1}: ");
+                Console.WriteLine($"Введите элемент под номером {i + 1}: ");
                 list.Add((T)Convert.ChangeType(Console.ReadLine(), typeof(T)));
             }
             return list;
@@ -38,12 +38,13 @@ namespace Lab4
             }
         }
 
-        static public LinkedList<int> CreateLinkedList(int size)
+        static public LinkedList<T> CreateLinkedList<T>(int size)
         {
-            LinkedList<int> list = new LinkedList<int>();
+            LinkedList<T> list = new LinkedList<T>();
             for (int i = 0; i < size; i++)
             {
-                list.AddLast(InputValidation.InputIntegerWithValidation($"Введите значение элемента под номером {i+1}", int.MinValue, int.MaxValue));
+                Console.WriteLine($"Введите элемент под номером {i + 1}: ");
+                list.AddLast((T)Convert.ChangeType(Console.ReadLine(), typeof(T)));
             }
             return list;
         }
@@ -63,7 +64,7 @@ namespace Lab4
             return false;
         }
 
-        static public void RemoveElementFromList(LinkedList<int> list, int n)
+        static public void RemoveElementFromList<T>(LinkedList<T> list, T n)
         {
             if (list.Remove(n))
             {
