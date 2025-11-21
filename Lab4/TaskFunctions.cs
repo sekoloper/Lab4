@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,25 +9,26 @@ namespace Lab4
 {
     static internal class TaskFunctions
     {
-        static public void PrintList(List<int> list)
+        static public void PrintList<T>(List<T> list)
         {
-            for (int i = 0; i < list.Count; i++)
+            foreach (T i in list)
             {
-                Console.Write($"{list[i]} ");
+                Console.WriteLine(i);
             }
         }
 
-        static public List<int> CreateList(int size)
+        static public List<T> CreateList<T>(int size) where T : IConvertible        
         {
-            List<int> list = new List<int>();
+            List<T> list = new List<T>();
             for (int i = 0; i < size; i++)
             {
-                list.Add(InputValidation.InputIntegerWithValidation($"Введите значение элемента под номером {i + 1}", int.MinValue, int.MaxValue));
+                Console.WriteLine($"Введите элемент под номером {i+1}: ");
+                list.Add((T)Convert.ChangeType(Console.ReadLine(), typeof(T)));
             }
             return list;
         }
 
-        static public void PrintLinkedList(LinkedList<int> list)
+        static public void PrintLinkedList<T>(LinkedList<T> list)
         {
             var currentNode = list.First;
             while (currentNode != null)
@@ -46,13 +48,13 @@ namespace Lab4
             return list;
         }
 
-        static public bool ListHasDuplicateElements(List<int> list)
+        static public bool ListHasDuplicateElements<T>(List<T> list) where T : IComparable<T>
         {
             for (int i = 0; i < list.Count; i++)
             {
                 for (int j = i + 1; j < list.Count; j++)
                 {
-                    if (list[i] == list[j])
+                    if (list[i].CompareTo(list[j]) == 0)
                     {
                         return true;
                     }

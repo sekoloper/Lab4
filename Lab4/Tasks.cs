@@ -25,7 +25,7 @@ namespace Lab4
         static private void Task1()
         {
             int size = InputValidation.InputIntegerWithValidation("\nВведите размер списка: ", 1, int.MaxValue);
-            List<int> list = TaskFunctions.CreateList(size);
+            List<int> list = TaskFunctions.CreateList<int>(size);
             Console.WriteLine("\nВаш список: ");
             TaskFunctions.PrintList(list);
             Console.WriteLine($"\n\nЕсть ли в списке одинаковые элементы: {TaskFunctions.ListHasDuplicateElements(list)}\n");
