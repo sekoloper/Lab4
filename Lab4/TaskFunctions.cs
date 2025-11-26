@@ -9,6 +9,14 @@ namespace Lab4
 {
     static internal class TaskFunctions
     {
+        static public void PrintHashSet<T>(HashSet<T> hashset)
+        {
+            foreach (T i in hashset)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
         static public void PrintList<T>(List<T> list)
         {
             foreach (T i in list)
@@ -76,39 +84,30 @@ namespace Lab4
             }
         }
 
-        static public void MusicPreferences(string[] allSongs, Dictionary<string, HashSet<string>> musicLovers)
+        static public List<HashSet<string>> MusicPreferences(HashSet<string> allSongs, Dictionary<string, HashSet<string>> musicLovers)
         {
-            foreach (string song in allSongs)
+            List<HashSet<string>> result = new()
             {
-                var musicLoversWhoLikeThisSong = new List<string>();
+                new(allSongs),
+                new(),
+                new(allSongs)
+            };
 
-                foreach (var musicLover in musicLovers)
-                {
-                    if (musicLover.Value.Contains(song))
-                    {
-                        musicLoversWhoLikeThisSong.Add(musicLover.Key);
-                    }
-                }
-
-                if (musicLoversWhoLikeThisSong.Count == 0)
-                {
-                    Console.Write($"Песня {song} не нравится никому из меломанов.\n\n");
-                }
-                else if (musicLoversWhoLikeThisSong.Count == musicLovers.Count)
-                {
-                    Console.Write($"Песня {song} нравится всем меломанам.\n\n");
-                }
-                else
-                {
-                    Console.WriteLine($"Песня {song} нравится следующим меломанам:");
-                    foreach (var musicLoverWhoLikeThisSong in musicLoversWhoLikeThisSong)
-                    {
-                        Console.Write(musicLoverWhoLikeThisSong);
-                        Console.Write("\n");
-                    }
-                    Console.Write("\n");
-                }
+            foreach (var musicLover in musicLovers)
+            {
+                result[0].IntersectWith(musicLover.Value);
             }
+
+            foreach (var musicLover in musicLovers)
+            {
+                result[1].UnionWith(musicLover.Value);
+            }
+
+            result[2].ExceptWith(result[1]);
+
+            result[1].ExceptWith(result[0]);
+
+            return result;
         }
 
 

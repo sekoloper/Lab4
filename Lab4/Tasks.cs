@@ -60,7 +60,7 @@ namespace Lab4
 
         static private void Task3()
         {
-            string[] allSongs = {
+            HashSet<string> allSongs = new HashSet<string> {
             "Golden Brown",
             "Soul Kitchen",
             "Долгая счастливая жизнь",
@@ -89,8 +89,17 @@ namespace Lab4
             };
 
             Console.Write("\n");
-            TaskFunctions.MusicPreferences(allSongs, musicLovers);
 
+            List<HashSet<string>> result = TaskFunctions.MusicPreferences(allSongs, musicLovers);
+
+            Console.WriteLine("Произведения, которые нравятся всем: ");
+            TaskFunctions.PrintHashSet(result[0]);
+
+            Console.WriteLine("\nПроизведения, которые нравятся некоторым: ");
+            TaskFunctions.PrintHashSet(result[1]);
+
+            Console.WriteLine("\nПроизведения, которые не нравятся никому: ");
+            TaskFunctions.PrintHashSet(result[2]);
         }
 
         static private void Task4()
